@@ -39,6 +39,35 @@ AFRAME.registerComponent("bullets", {
       }
     });
   },
+
+  removeBullet: function (e) {
+    //Original entity (bullet)
+    console.log(e.detail.target.el);
+
+    //Other entity, which bullet touched.
+    console.log(e.detail.body.el);
+
+    //bullet element
+
+
+    //element which is hit
+ 
+
+    if (elementHit.id.includes("box")) 
+      {
+        //set material attribute
+        
+
+        //impulse and point vector
+        
+
+        //remove event listener
+        
+        
+        //remove the bullets from the scene
+      
+    }
+  },
 });
 
 

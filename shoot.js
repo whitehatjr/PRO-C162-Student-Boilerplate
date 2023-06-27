@@ -35,6 +35,9 @@ AFRAME.registerComponent("bullets", {
 
         var scene = document.querySelector("#scene");
 
+        bullet.setAttribute("dynamic-body",{shape: "sphere", mass: "0"});
+
+        bullet.addEventListener("collide", this.removeBullet)
         scene.appendChild(bullet);
       }
     });
@@ -48,23 +51,33 @@ AFRAME.registerComponent("bullets", {
     console.log(e.detail.body.el);
 
     //bullet element
+    var element = e.detail.target.el;
 
 
     //element which is hit
+    var elementHit = e.detail.body.el;
  
 
     if (elementHit.id.includes("box")) 
       {
+        elementHit.setAttribute("material",{
+          opacity:1,
+          transparent: true,
+        })
         //set material attribute
-        
+       
 
         //impulse and point vector
-        
+        var impulse = new CANNON.Vec3(-2,2,1)
+        var worldPoint = new CANNON.Vec3().copy(elementHit.getAttribute("position"));
+        elementHit.body.applyImpulse(impulse,worldPoint);
 
         //remove event listener
-        
+        element.removeEventListener("collide", this.shoot);
         
         //remove the bullets from the scene
+        var scene = document.querySelector("#scene")
+        scene.removeChild(element);
       
     }
   },
